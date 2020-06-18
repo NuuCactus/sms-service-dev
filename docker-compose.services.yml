@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  sms_worker:
+    image: nuucactus/sms-worker:latest
+    networks:
+      - private
+    user: "1000"
+    restart: on-failure
+
+  sms_api:
+    image: nuucactus/sms-api:latest
+    networks:
+      - public
+      - private
+    user: "1000"
+    ports:
+      - "8080:8080"
+    restart: on-failure
+
+networks:
+  public:
+    name: public
+    internal: false
+  private:
+    name: private
+    internal: true

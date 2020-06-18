@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+
+  sms_service_storage:
+    image: nats-streaming:0.17.0-linux
+    command: -store file -dir datastore
+    volumes:
+       - ./sms_service_storage:/datastore
+    networks:
+      - public
+    user: "1000"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    restart: on-failure
+
+networks:
+  public:
+    name: public
+    internal: false
